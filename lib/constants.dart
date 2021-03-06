@@ -1,6 +1,8 @@
+import 'package:ccc_task/models/comment.dart';
 import 'package:ccc_task/models/work_item.dart';
 import 'package:ccc_task/models/work_order.dart';
 import 'package:intl/intl.dart';
+
 class Constants {
   static List<WorkOrder> workOrders = [
     WorkOrder(
@@ -16,6 +18,16 @@ class Constants {
           WorkItem(id: '1111', description: 'Lorem ipsum', progress: 0),
           WorkItem(id: '1112', description: 'Lorem ipsum', progress: 0),
           WorkItem(id: '1113', description: 'Lorem ipsum', progress: 0)
+        ],
+        comments: [
+          Comment(
+              id: '1212',
+              text: 'This is the first comment',
+              createdAt: DateTime.now().subtract(Duration(days: 1))),
+          Comment(
+              id: '1213',
+              text: 'This is the second comment',
+              createdAt: DateTime.now())
         ]),
     WorkOrder(
         id: '222',
@@ -24,7 +36,7 @@ class Constants {
         startDate: DateTime.now().add(const Duration(days: 3)),
         endDate: DateTime.now().add(const Duration(days: 4)),
         description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
         items: [
           WorkItem(id: '2220', description: 'Lorem ipsum', progress: 0),
           WorkItem(id: '2221', description: 'Lorem ipsum', progress: 0),
@@ -47,14 +59,20 @@ class Constants {
         ])
   ];
 
-  static String dateAsString(DateTime dateTime){
+  static String dateAsString(DateTime dateTime) {
     return DateFormat('EEE, MMM dd').format(dateTime);
   }
 
-  static bool isUpcoming(WorkOrder workOrder){
-    return (workOrder.startDate.compareTo(DateTime.now()) > 0 && workOrder.progress == 0);
+  static String dateTimeAsString(DateTime dateTime) {
+    return DateFormat('EEE, MMM dd HH:mm').format(dateTime);
   }
-  static bool isCompleted(WorkOrder workOrder){
+
+  static bool isUpcoming(WorkOrder workOrder) {
+    return (workOrder.startDate.compareTo(DateTime.now()) > 0 &&
+        workOrder.progress == 0);
+  }
+
+  static bool isCompleted(WorkOrder workOrder) {
     return (workOrder.progress == 100);
   }
 }

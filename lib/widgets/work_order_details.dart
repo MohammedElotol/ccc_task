@@ -1,5 +1,6 @@
 import 'package:ccc_task/models/work_item.dart';
 import 'package:ccc_task/models/work_order.dart';
+import 'package:ccc_task/widgets/comments_list.dart';
 import 'package:ccc_task/widgets/images_list.dart';
 import 'package:ccc_task/widgets/slider_widget.dart';
 import 'package:ccc_task/widgets/static_items_list.dart';
@@ -96,6 +97,18 @@ class _WorkOrderDetailsState extends State<WorkOrderDetails> {
                     ),
                     SizedBox(height: 16),
                     ImagesList(),
+                    SizedBox(height: 16),
+                    Divider(height: 1, color: Colors.grey),
+                    SizedBox(height: 16),
+                    Text(
+                      'Comments',
+                      style: TextStyle(
+                          fontSize: 18,
+                          color: Color(0xFF333333),
+                          fontWeight: FontWeight.w600),
+                    ),
+                    SizedBox(height: 16),
+                    CommentsList(widget.workOrder.comments)
                   ],
                 ),
               ),
