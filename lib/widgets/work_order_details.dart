@@ -82,7 +82,15 @@ class _WorkOrderDetailsState extends State<WorkOrderDetails> {
                                 style: ElevatedButton.styleFrom(
                                     padding: EdgeInsets.symmetric(
                                         horizontal: 20, vertical: 10)),
-                                onPressed: () {},
+                                onPressed: () {
+                                  updateItemsDialog((workItem) {
+                                    setState(() {
+                                      widget.workOrder.items = workItem;
+                                    });
+                                    widget.onProgressUpdate(
+                                        widget.workOrder.progress);
+                                  });
+                                },
                                 child: Text(
                                   'Update Progress',
                                   style: TextStyle(

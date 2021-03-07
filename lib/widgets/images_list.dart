@@ -62,7 +62,8 @@ class _ImagesListState extends State<ImagesList> {
               ),
             ),
             Visibility(
-              visible: widget.workOrder.imagePaths == null || widget.workOrder.imagePaths.isEmpty,
+              visible: widget.workOrder.imagePaths == null ||
+                  widget.workOrder.imagePaths.isEmpty,
               child: Row(
                 children: [
                   SizedBox(width: 16),
