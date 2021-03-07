@@ -1,5 +1,9 @@
+import 'dart:math';
+
+import 'package:ccc_task/models/comment.dart';
 import 'package:ccc_task/models/work_item.dart';
 import 'package:ccc_task/models/work_order.dart';
+import 'package:ccc_task/widgets/comment_field.dart';
 import 'package:ccc_task/widgets/comments_list.dart';
 import 'package:ccc_task/widgets/images_list.dart';
 import 'package:ccc_task/widgets/slider_widget.dart';
@@ -103,30 +107,53 @@ class _WorkOrderDetailsState extends State<WorkOrderDetails> {
                     Visibility(
                       visible: widget.workOrder.comments != null &&
                           widget.workOrder.comments.isNotEmpty,
-                      child: Text(
-                        'Comments',
-                        style: TextStyle(
-                            fontSize: 18,
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.insert_comment_outlined,
                             color: Color(0xFF333333),
-                            fontWeight: FontWeight.w600),
+                            size: 15,
+                          ),
+                          SizedBox(width: 4),
+                          Text(
+                            'Comments',
+                            style: TextStyle(
+                                fontSize: 18,
+                                color: Color(0xFF333333),
+                                fontWeight: FontWeight.w600),
+                          ),
+                        ],
                       ),
                     ),
                     SizedBox(height: 16),
                     CommentsList(widget.workOrder.comments),
                     SizedBox(height: 24),
-                    Container(
-                        width: double.maxFinite,
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 18, vertical: 12),
-                        decoration: BoxDecoration(
-                            color: Color(0xfff5f5f5),
-                            border: Border.all(color: Color(0xFFEAEAEA)),
-                            borderRadius: BorderRadius.circular(16)),
-                        child: Text(
-                          'Add a comment...',
-                          style:
-                              TextStyle(fontSize: 16, color: Color(0xff666666)),
-                        ))
+                    GestureDetector(
+                      onTap: () {
+                        addCommentDialog((commentText) {
+                          setState(() {
+                            if(widget.workOrder.comments == null) widget.workOrder.comments = [];
+                            widget.workOrder.comments.add(Comment(
+                                id: Random().nextInt(100).toString(),
+                                text: commentText,
+                                createdAt: DateTime.now()));
+                          });
+                        });
+                      },
+                      child: Container(
+                          width: double.maxFinite,
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 18, vertical: 12),
+                          decoration: BoxDecoration(
+                              color: Color(0xfff5f5f5),
+                              border: Border.all(color: Color(0xFFEAEAEA)),
+                              borderRadius: BorderRadius.circular(16)),
+                          child: Text(
+                            'Add a comment...',
+                            style: TextStyle(
+                                fontSize: 16, color: Color(0xff666666)),
+                          )),
+                    )
                   ],
                 ),
               ),
@@ -250,6 +277,51 @@ class _WorkOrderDetailsState extends State<WorkOrderDetails> {
                   },
                 ),
               ));
+        },
+        context: context);
+  }
+
+  addCommentDialog(onAddComment(comment)) {
+    String commentText = '';
+    showDialog<void>(
+        barrierDismissible: false,
+        builder: (context) {
+          return AlertDialog(
+              actionsPadding: EdgeInsets.only(right: 16),
+              actions: [
+                TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: Text(
+                      'Cancel',
+                      style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.blue,
+                          fontWeight: FontWeight.bold),
+                    )),
+                ElevatedButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                      onAddComment(commentText);
+                      // onAddComment(comment);
+                    },
+                    style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12.0),
+                      ),
+                    ),
+                    child: Text(
+                      'Send',
+                      style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold),
+                    ))
+              ],
+              content: Container(
+                  width: 300,
+                  child: CommentField((text) => commentText = text)));
         },
         context: context);
   }
