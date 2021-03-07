@@ -65,6 +65,10 @@ class _WorkOrdersScreenState extends State<WorkOrdersScreen> {
             return Scaffold(
               appBar: AppBar(
                 backgroundColor: Colors.white,
+                  title: Text(
+                    'Work Orders',
+                    style: TextStyle(color: Colors.black),
+                  ),
                 // actions: [
                 //   GestureDetector(
                 //     onTap: () => Navigator.push(
