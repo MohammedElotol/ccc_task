@@ -33,8 +33,6 @@ class Constants {
         imagePaths: [
           'https://prd-webrepository.firabarcelona.com/wp-content/uploads/sites/50/2020/09/23112004/5.jpeg',
           'https://nz3.architecturemedia.net/site_media/media/cache/60/7b/607bedd608f1ba45c9943e35b506c6eb.jpg',
-          'https://nz3.architecturemedia.net/site_media/media/cache/60/7b/607bedd608f1ba45c9943e35b506c6eb.jpg',
-          'https://nz3.architecturemedia.net/site_media/media/cache/60/7b/607bedd608f1ba45c9943e35b506c6eb.jpg',
           'https://media.istockphoto.com/photos/view-of-a-tied-rebar-beam-cage-before-casting-concrete-this-will-be-picture-id1205744644'
         ]),
     WorkOrder(
