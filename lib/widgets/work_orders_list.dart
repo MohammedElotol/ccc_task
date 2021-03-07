@@ -33,11 +33,13 @@ class _WorkOrdersListState extends State<WorkOrdersList> {
             child: Expanded(
               child: Card(
                 shape: RoundedRectangleBorder(
-                    side: BorderSide(
-                        width: 0.5, color: Colors.black.withAlpha(20)),
+                    side: index != selectedWorkOrderIndex ?BorderSide(
+                        width: 0.5, color: Colors.black.withAlpha(20)):
+                    BorderSide(
+                        width: 1, color: Colors.blue),
                     borderRadius: BorderRadius.circular(10)),
                 clipBehavior: Clip.hardEdge,
-                elevation: index == selectedWorkOrderIndex ? 8 : 3,
+                elevation: 3,
                 // margin: EdgeInsets.symmetric(horizontal: 16, vertical: 6),
                 shadowColor: Colors.black.withAlpha(100),
                 child: Padding(

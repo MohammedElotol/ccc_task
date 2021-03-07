@@ -16,7 +16,7 @@ class _ImagesListState extends State<ImagesList> {
           width: 60,
           height: 80,
           child: DottedBorder(
-            color: Colors.black.withAlpha(200),
+            color: Colors.black.withAlpha(100),
             dashPattern: [6, 4, 6, 4],
             borderType: BorderType.RRect,
             radius: Radius.circular(12),
@@ -29,10 +29,6 @@ class _ImagesListState extends State<ImagesList> {
             ),
           ),
         )
-        // Icon(Icons.camera_alt_outlined, color: Colors.blue, size: 20,),
-        // Container(
-        //   decoration: BoxDecoration,
-        //   child: Icon(Icons.camera_alt_outlined, color: Colors.blue, size: 20,),)
       ],
     );
   }

@@ -127,7 +127,7 @@ class _WorkOrderDetailsState extends State<WorkOrderDetails> {
                     ),
                     SizedBox(height: 16),
                     CommentsList(widget.workOrder.comments),
-                    SizedBox(height: 24),
+                    SizedBox(height: 16),
                     GestureDetector(
                       onTap: () {
                         addCommentDialog((commentText) {

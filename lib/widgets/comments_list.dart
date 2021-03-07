@@ -65,17 +65,17 @@ class _CommentsListState extends State<CommentsList> {
             Icon(
               Icons.mode_comment_outlined,
               size: 40,
-              color: Color(0xFF666666),
+              color: Color(0xFF999999),
             ),
             SizedBox(height: 12),
             Text(
               'No Comments',
               style: TextStyle(
                   fontSize: 18,
-                  color: Color(0xFF666666),
+                  color: Color(0xFF999999),
                   fontWeight: FontWeight.w700),
             ),
-            SizedBox(height: 16),
+            SizedBox(height: 12),
           ],
         ),
       );
