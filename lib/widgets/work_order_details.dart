@@ -367,7 +367,8 @@ class _WorkOrderDetailsState extends State<WorkOrderDetails> {
               ],
               content: Container(
                   width: 300,
-                  child: CommentField((text) => commentText = text)));
+                  child: CommentField((text) => commentText = text))
+          );
         },
         context: context);
   }
