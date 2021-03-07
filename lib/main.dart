@@ -1,7 +1,8 @@
 import 'package:ccc_task/screens/work_orders_screen.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+void main(){
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(MyApp());
 }
 

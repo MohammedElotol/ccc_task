@@ -1,6 +1,7 @@
 import 'package:ccc_task/models/comment.dart';
 import 'package:ccc_task/models/work_item.dart';
 import 'package:ccc_task/models/work_order.dart';
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class Constants {
@@ -28,7 +29,8 @@ class Constants {
               id: '1213',
               text: 'This is the second comment',
               createdAt: DateTime.now())
-        ]),
+        ],
+        imagePaths: []),
     WorkOrder(
         id: '222',
         header: 'Cast Concrete 2',
@@ -42,7 +44,8 @@ class Constants {
           WorkItem(id: '2221', description: 'Lorem ipsum', progress: 0),
           WorkItem(id: '2222', description: 'Lorem ipsum', progress: 0),
           WorkItem(id: '2223', description: 'Lorem ipsum', progress: 0)
-        ]),
+        ],
+        imagePaths: []),
     WorkOrder(
         id: '333',
         header: 'Cast Concrete 3',
@@ -56,7 +59,8 @@ class Constants {
           WorkItem(id: '3331', description: 'Lorem ipsum', progress: 0),
           WorkItem(id: '3332', description: 'Lorem ipsum', progress: 0),
           WorkItem(id: '3333', description: 'Lorem ipsum', progress: 0)
-        ])
+        ],
+        imagePaths: [])
   ];
 
   static String dateAsString(DateTime dateTime) {
@@ -74,5 +78,10 @@ class Constants {
 
   static bool isCompleted(WorkOrder workOrder) {
     return (workOrder.progress == 100);
+  }
+
+  static bool isWideScreen(BuildContext context) {
+    return (MediaQuery.of(context).size.shortestSide > 600 ||
+        MediaQuery.of(context).orientation == Orientation.landscape);
   }
 }

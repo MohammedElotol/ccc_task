@@ -1,5 +1,6 @@
 import 'package:ccc_task/constants.dart';
 import 'package:ccc_task/models/work_order.dart';
+import 'package:ccc_task/widgets/work_order_details.dart';
 import 'package:flutter/material.dart';
 
 class WorkOrdersList extends StatefulWidget {
@@ -25,18 +26,37 @@ class _WorkOrdersListState extends State<WorkOrdersList> {
           WorkOrder workOrder = widget.workOrders[index];
           return InkWell(
             onTap: () {
-              widget.onWorkSelected(workOrder);
-              setState(() {
-                selectedWorkOrderIndex = index;
-              });
+              if (Constants.isWideScreen(context)) {
+                widget.onWorkSelected(workOrder);
+                setState(() {
+                  selectedWorkOrderIndex = index;
+                });
+              } else {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => Scaffold(
+                        appBar: AppBar(backgroundColor: Colors.white,iconTheme: IconThemeData(
+                          color: Colors.black,
+                        ),),
+                        body: SafeArea(
+                          child: WorkOrderDetails(
+                              widget.workOrders[index], (progress) {
+                            setState(() {});
+                          }),
+                        ),
+                      ),
+                    ));
+              }
             },
             child: Expanded(
               child: Card(
                 shape: RoundedRectangleBorder(
-                    side: index != selectedWorkOrderIndex ?BorderSide(
-                        width: 0.5, color: Colors.black.withAlpha(20)):
-                    BorderSide(
-                        width: 1, color: Colors.blue),
+                    side: index == selectedWorkOrderIndex &&
+                            Constants.isWideScreen(context)
+                        ? BorderSide(width: 1, color: Colors.blue)
+                        : BorderSide(
+                            width: 0.5, color: Colors.black.withAlpha(20)),
                     borderRadius: BorderRadius.circular(10)),
                 clipBehavior: Clip.hardEdge,
                 elevation: 3,

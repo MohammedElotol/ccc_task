@@ -10,6 +10,7 @@ class WorkOrder {
   String description;
   List<WorkItem> items;
   List<Comment> comments;
+  List<String> imagePaths;
 
   WorkOrder(
       {this.id,
@@ -19,6 +20,7 @@ class WorkOrder {
       this.endDate,
       this.description,
       this.comments,
+      this.imagePaths,
       this.items});
 
   int get progress {

@@ -100,7 +100,7 @@ class _WorkOrderDetailsState extends State<WorkOrderDetails> {
                           fontWeight: FontWeight.w600),
                     ),
                     SizedBox(height: 16),
-                    ImagesList(),
+                    ImagesList(widget.workOrder),
                     SizedBox(height: 16),
                     Divider(height: 1, color: Colors.grey),
                     SizedBox(height: 16),

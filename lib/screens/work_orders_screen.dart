@@ -20,29 +20,44 @@ class _WorkOrdersScreenState extends State<WorkOrdersScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Container(
-          child: OrientationBuilder(
-            builder: (context, orientation) {
-              if (orientation == Orientation.landscape) {
-                return Row(children: [
-                  Expanded(flex:4,child: WorkOrdersList(Constants.workOrders, (selectedWO){
-                    setState(() {
-                      selectedWorkOrder = selectedWO;
-                    });
-                  })),
-                  Expanded(flex:5,child: WorkOrderDetails(selectedWorkOrder, (progress){
-                    setState(() {
-                    });
-                  }))
-                ]);
-              } else {
-                return Container();
-              }
-            },
-          ),
-        ),
+    return Container(
+      child: OrientationBuilder(
+        builder: (context, orientation) {
+          if (Constants.isWideScreen(context)) {
+            return Scaffold(
+              body: SafeArea(
+                child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(
+                          flex: 4,
+                          child: WorkOrdersList(Constants.workOrders,
+                              (selectedWO) {
+                            setState(() {
+                              selectedWorkOrder = selectedWO;
+                            });
+                          })),
+                      Expanded(
+                          flex: 5,
+                          child:
+                              WorkOrderDetails(selectedWorkOrder, (progress) {
+                            setState(() {});
+                          }))
+                    ]),
+              ),
+            );
+          } else {
+            return Scaffold(
+              appBar: AppBar(backgroundColor: Colors.white),
+              body: SafeArea(
+                  child: WorkOrdersList(Constants.workOrders, (selectedWO) {
+                setState(() {
+                  selectedWorkOrder = selectedWO;
+                });
+              })),
+            );
+          }
+        },
       ),
     );
   }
