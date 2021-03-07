@@ -30,4 +30,12 @@ class WorkOrder {
     }
     return progress;
   }
+
+  bool isUpcoming() {
+    return (startDate.compareTo(DateTime.now()) > 0 && progress == 0);
+  }
+
+  bool isCompleted() {
+    return (progress == 100);
+  }
 }

@@ -77,15 +77,6 @@ class Constants {
     return DateFormat('EEE, MMM dd HH:mm').format(dateTime);
   }
 
-  static bool isUpcoming(WorkOrder workOrder) {
-    return (workOrder.startDate.compareTo(DateTime.now()) > 0 &&
-        workOrder.progress == 0);
-  }
-
-  static bool isCompleted(WorkOrder workOrder) {
-    return (workOrder.progress == 100);
-  }
-
   static bool isWideScreen(BuildContext context) {
     return (MediaQuery.of(context).size.shortestSide > 600 ||
         MediaQuery.of(context).orientation == Orientation.landscape);

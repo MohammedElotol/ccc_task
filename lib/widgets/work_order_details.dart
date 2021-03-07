@@ -9,6 +9,7 @@ import 'package:ccc_task/widgets/images_list.dart';
 import 'package:ccc_task/widgets/slider_widget.dart';
 import 'package:ccc_task/widgets/static_items_list.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../constants.dart';
 
@@ -25,153 +26,190 @@ class WorkOrderDetails extends StatefulWidget {
 class _WorkOrderDetailsState extends State<WorkOrderDetails> {
   @override
   Widget build(BuildContext context) {
-    return Card(
-      shape: RoundedRectangleBorder(
-          side: BorderSide(width: 0.5, color: Colors.black.withAlpha(20)),
-          borderRadius: BorderRadius.circular(10)),
-      clipBehavior: Clip.hardEdge,
-      elevation: 3,
-      margin: EdgeInsets.symmetric(horizontal: 16, vertical: 6),
-      shadowColor: Colors.black.withAlpha(100),
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: SingleChildScrollView(
-          child: Row(
-            children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      widget.workOrder.header,
-                      style: TextStyle(
-                          color: Color(0xFF333333),
-                          fontSize: 20,
-                          fontWeight: FontWeight.w700),
+    return Padding(
+      padding: const EdgeInsets.all(16),
+      child: SingleChildScrollView(
+        child: Row(
+          children: [
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    widget.workOrder.header,
+                    style: TextStyle(
+                        color: Color(0xFF333333),
+                        fontSize: 20,
+                        fontWeight: FontWeight.w700),
+                  ),
+                  SizedBox(height: 8),
+                  statusWidget(),
+                  SizedBox(height: 16),
+                  Text(
+                    '${Constants.dateAsString(widget.workOrder.startDate)} - ${Constants.dateAsString(widget.workOrder.endDate)}',
+                    style: TextStyle(fontSize: 14, color: Color(0xFF999999)),
+                  ),
+                  SizedBox(height: 16),
+                  Text(
+                    widget.workOrder.description,
+                    style: TextStyle(height: 1.5, color: Color(0xFF666666)),
+                  ),
+                  SizedBox(height: 16),
+                  Divider(height: 1, color: Colors.grey),
+                  SizedBox(height: 16),
+                  Visibility(
+                    visible: widget.workOrder.isUpcoming(),
+                    child: Center(
+                      child: Column(
+                        children: [
+                          SvgPicture.asset(
+                            'assets/icons/helmet.svg',
+                            color: Color(0xFF999999),
+                            width: 60,
+                          ),
+                          SizedBox(height: 8),
+                          Text(
+                            'No updates on work order',
+                            style: TextStyle(
+                                color: Color(0xFF999999),
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600),
+                          ),
+                          SizedBox(height: 16),
+                          SizedBox(
+                            width: 250,
+                            child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 20, vertical: 10)),
+                                onPressed: () {},
+                                child: Text(
+                                  'Update Progress',
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w500),
+                                )),
+                          )
+                        ],
+                      ),
                     ),
-                    SizedBox(height: 8),
-                    statusWidget(),
-                    SizedBox(height: 16),
-                    Text(
-                      '${Constants.dateAsString(widget.workOrder.startDate)} - ${Constants.dateAsString(widget.workOrder.endDate)}',
-                      style: TextStyle(fontSize: 14, color: Color(0xFF666666)),
-                    ),
-                    SizedBox(height: 16),
-                    Text(
-                      widget.workOrder.description,
-                      style: TextStyle(height: 1.5, color: Color(0xFF999999)),
-                    ),
-                    SizedBox(height: 16),
-                    Divider(height: 1, color: Colors.grey),
-                    SizedBox(height: 16),
-                    Row(
+                  ),
+                  Visibility(
+                    visible: !widget.workOrder.isUpcoming(),
+                    child: Column(
                       children: [
+                        Row(
+                          children: [
+                            Text(
+                              'Items',
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  color: Color(0xFF333333),
+                                  fontWeight: FontWeight.w600),
+                            ),
+                            IconButton(
+                              icon: Icon(Icons.edit,
+                                  color: Color(0xFF333333), size: 18),
+                              onPressed: () {
+                                updateItemsDialog((workItem) {
+                                  setState(() {
+                                    widget.workOrder.items = workItem;
+                                  });
+                                  widget.onProgressUpdate(
+                                      widget.workOrder.progress);
+                                });
+                              },
+                            ),
+                          ],
+                        ),
+                        StaticItemsList(widget.workOrder.items),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 16),
+                  Divider(height: 1, color: Colors.grey),
+                  SizedBox(height: 16),
+                  Text(
+                    'Pictures',
+                    style: TextStyle(
+                        fontSize: 18,
+                        color: Color(0xFF333333),
+                        fontWeight: FontWeight.w600),
+                  ),
+                  SizedBox(height: 16),
+                  ImagesList(widget.workOrder),
+                  SizedBox(height: 16),
+                  Divider(height: 1, color: Colors.grey),
+                  SizedBox(height: 16),
+                  Visibility(
+                    visible: widget.workOrder.comments != null &&
+                        widget.workOrder.comments.isNotEmpty,
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.insert_comment_outlined,
+                          color: Color(0xFF333333),
+                          size: 15,
+                        ),
+                        SizedBox(width: 4),
                         Text(
-                          'Items',
+                          'Comments',
                           style: TextStyle(
                               fontSize: 18,
                               color: Color(0xFF333333),
                               fontWeight: FontWeight.w600),
                         ),
-                        IconButton(
-                          icon: Icon(Icons.edit,
-                              color: Color(0xFF333333), size: 18),
-                          onPressed: () {
-                            updateItemsDialog((workItem) {
-                              setState(() {
-                                widget.workOrder.items = workItem;
-                              });
-                              widget
-                                  .onProgressUpdate(widget.workOrder.progress);
-                            });
-                          },
-                        ),
                       ],
                     ),
-                    StaticItemsList(widget.workOrder.items),
-                    SizedBox(height: 16),
-                    Divider(height: 1, color: Colors.grey),
-                    SizedBox(height: 16),
-                    Text(
-                      'Photos',
-                      style: TextStyle(
-                          fontSize: 18,
-                          color: Color(0xFF333333),
-                          fontWeight: FontWeight.w600),
-                    ),
-                    SizedBox(height: 16),
-                    ImagesList(widget.workOrder),
-                    SizedBox(height: 16),
-                    Divider(height: 1, color: Colors.grey),
-                    SizedBox(height: 16),
-                    Visibility(
-                      visible: widget.workOrder.comments != null &&
-                          widget.workOrder.comments.isNotEmpty,
-                      child: Row(
-                        children: [
-                          Icon(
-                            Icons.insert_comment_outlined,
-                            color: Color(0xFF333333),
-                            size: 15,
-                          ),
-                          SizedBox(width: 4),
-                          Text(
-                            'Comments',
-                            style: TextStyle(
-                                fontSize: 18,
-                                color: Color(0xFF333333),
-                                fontWeight: FontWeight.w600),
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(height: 16),
-                    CommentsList(widget.workOrder.comments),
-                    SizedBox(height: 16),
-                    GestureDetector(
-                      onTap: () {
-                        addCommentDialog((commentText) {
-                          setState(() {
-                            if(widget.workOrder.comments == null) widget.workOrder.comments = [];
-                            widget.workOrder.comments.add(Comment(
-                                id: Random().nextInt(100).toString(),
-                                text: commentText,
-                                createdAt: DateTime.now()));
-                          });
+                  ),
+                  SizedBox(height: 16),
+                  CommentsList(widget.workOrder.comments),
+                  SizedBox(height: 16),
+                  GestureDetector(
+                    onTap: () {
+                      addCommentDialog((commentText) {
+                        setState(() {
+                          if (widget.workOrder.comments == null)
+                            widget.workOrder.comments = [];
+                          widget.workOrder.comments.add(Comment(
+                              id: Random().nextInt(100).toString(),
+                              text: commentText,
+                              createdAt: DateTime.now()));
                         });
-                      },
-                      child: Container(
-                          width: double.maxFinite,
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 18, vertical: 12),
-                          decoration: BoxDecoration(
-                              color: Color(0xfff5f5f5),
-                              border: Border.all(color: Color(0xFFEAEAEA)),
-                              borderRadius: BorderRadius.circular(16)),
-                          child: Text(
-                            'Add a comment...',
-                            style: TextStyle(
-                                fontSize: 16, color: Color(0xff666666)),
-                          )),
-                    )
-                  ],
-                ),
+                      });
+                    },
+                    child: Container(
+                        width: double.maxFinite,
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 18, vertical: 12),
+                        decoration: BoxDecoration(
+                            color: Color(0xfff5f5f5),
+                            border: Border.all(color: Color(0xFFEAEAEA)),
+                            borderRadius: BorderRadius.circular(16)),
+                        child: Text(
+                          'Add a comment...',
+                          style:
+                              TextStyle(fontSize: 16, color: Color(0xff666666)),
+                        )),
+                  )
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
   }
 
   Widget statusWidget() {
-    if (Constants.isCompleted(widget.workOrder)) {
+    if (widget.workOrder.isCompleted()) {
       //complete
       return Text(
         '100% completed',
         style: TextStyle(color: Colors.green, fontSize: 16),
       );
-    } else if (Constants.isUpcoming(widget.workOrder)) {
+    } else if (widget.workOrder.isUpcoming()) {
       // upcoming
       return Text(
         'Upcoming',

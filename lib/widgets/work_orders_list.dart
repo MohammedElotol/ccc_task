@@ -36,12 +36,15 @@ class _WorkOrdersListState extends State<WorkOrdersList> {
                     context,
                     MaterialPageRoute(
                       builder: (context) => Scaffold(
-                        appBar: AppBar(backgroundColor: Colors.white,iconTheme: IconThemeData(
-                          color: Colors.black,
-                        ),),
+                        appBar: AppBar(
+                          backgroundColor: Colors.white,
+                          iconTheme: IconThemeData(
+                            color: Colors.black,
+                          ),
+                        ),
                         body: SafeArea(
-                          child: WorkOrderDetails(
-                              widget.workOrders[index], (progress) {
+                          child: WorkOrderDetails(widget.workOrders[index],
+                              (progress) {
                             setState(() {});
                           }),
                         ),
@@ -77,13 +80,13 @@ class _WorkOrdersListState extends State<WorkOrdersList> {
                                 fontSize: 18,
                                 fontWeight: FontWeight.w700),
                           ),
-                          Constants.isCompleted(workOrder)
+                          workOrder.isCompleted()
                               ? Text(
                                   'Completed',
                                   style: TextStyle(
                                       color: Colors.green, fontSize: 16),
                                 )
-                              : Constants.isUpcoming(workOrder)
+                              : workOrder.isUpcoming()
                                   ? Text('Upcoming',
                                       style: TextStyle(
                                           color: Colors.blue, fontSize: 16))
@@ -96,8 +99,8 @@ class _WorkOrdersListState extends State<WorkOrdersList> {
                       ),
                       SizedBox(height: 8),
                       Visibility(
-                        visible: (!Constants.isCompleted(workOrder) &&
-                            !Constants.isUpcoming(workOrder)),
+                        visible: (!workOrder.isCompleted() &&
+                            !workOrder.isUpcoming()),
                         child: ClipRRect(
                           borderRadius: BorderRadius.all(Radius.circular(6)),
                           child: LinearProgressIndicator(

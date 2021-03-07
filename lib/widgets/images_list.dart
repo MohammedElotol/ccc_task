@@ -61,6 +61,18 @@ class _ImagesListState extends State<ImagesList> {
                 ),
               ),
             ),
+            Visibility(
+              visible: widget.workOrder.imagePaths == null || widget.workOrder.imagePaths.isEmpty,
+              child: Row(
+                children: [
+                  SizedBox(width: 16),
+                  Text(
+                    'Take pictures,\nand keep engineers informed',
+                    style: TextStyle(fontSize: 16, color: Color(0xff666666)),
+                  ),
+                ],
+              ),
+            ),
             ListView.builder(
               scrollDirection: Axis.horizontal,
               shrinkWrap: true,
