@@ -8,17 +8,17 @@ class Constants {
   static List<WorkOrder> workOrders = [
     WorkOrder(
         id: '111',
-        header: 'Cast Concrete',
+        header: 'Work Order 1',
         creationDate: DateTime.now(),
-        startDate: DateTime.now(),
-        endDate: DateTime.now().add(const Duration(days: 3)),
+        startDate: DateTime.now().subtract(const Duration(days: 3)),
+        endDate: DateTime.now(),
         description:
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
         items: [
-          WorkItem(id: '1110', description: 'Lorem ipsum', progress: 0),
-          WorkItem(id: '1111', description: 'Lorem ipsum', progress: 0),
-          WorkItem(id: '1112', description: 'Lorem ipsum', progress: 0),
-          WorkItem(id: '1113', description: 'Lorem ipsum', progress: 0)
+          WorkItem(id: '1110', description: 'Lorem ipsum', progress: 100),
+          WorkItem(id: '1111', description: 'Lorem ipsum', progress: 100),
+          WorkItem(id: '1112', description: 'Lorem ipsum', progress: 100),
+          WorkItem(id: '1113', description: 'Lorem ipsum', progress: 100)
         ],
         comments: [
           Comment(
@@ -37,16 +37,16 @@ class Constants {
         ]),
     WorkOrder(
         id: '222',
-        header: 'Cast Concrete 2',
+        header: 'Work Order 3',
         creationDate: DateTime.now(),
-        startDate: DateTime.now().add(const Duration(days: 3)),
+        startDate: DateTime.now().subtract(const Duration(days: 1)),
         endDate: DateTime.now().add(const Duration(days: 4)),
         description:
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
         items: [
-          WorkItem(id: '2220', description: 'Lorem ipsum', progress: 0),
-          WorkItem(id: '2221', description: 'Lorem ipsum', progress: 0),
-          WorkItem(id: '2222', description: 'Lorem ipsum', progress: 0),
+          WorkItem(id: '2220', description: 'Lorem ipsum', progress: 100),
+          WorkItem(id: '2221', description: 'Lorem ipsum', progress: 50),
+          WorkItem(id: '2222', description: 'Lorem ipsum', progress: 30),
           WorkItem(id: '2223', description: 'Lorem ipsum', progress: 0)
         ],
         imagePaths: []),

@@ -24,6 +24,7 @@ class WorkOrderDetails extends StatefulWidget {
 }
 
 class _WorkOrderDetailsState extends State<WorkOrderDetails> {
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -367,8 +368,7 @@ class _WorkOrderDetailsState extends State<WorkOrderDetails> {
               ],
               content: Container(
                   width: 300,
-                  child: CommentField((text) => commentText = text))
-          );
+                  child: CommentField((text) => commentText = text)));
         },
         context: context);
   }
